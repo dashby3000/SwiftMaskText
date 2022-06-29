@@ -13,9 +13,15 @@
 
 import UIKit
 
+public protocol SwiftMaskFieldDelegate: AnyObject {
+    func textFieldDidChange(textField: UITextField)
+}
+
 open class SwiftMaskField: UITextField {
     
     private var _mask: String!
+    
+    public weak var swiftMaskDelegate: SwiftMaskFieldDelegate?
     
     @IBInspectable public var maskString: String {
         
@@ -177,6 +183,8 @@ open class SwiftMaskField: UITextField {
     
     @objc func textFieldDidChange(textField: UITextField) {
         applyFilter(textField: textField)
+        
+        swiftMaskDelegate?.textFieldDidChange(textField: textField)
     }
     
 }
