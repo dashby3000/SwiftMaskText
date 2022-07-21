@@ -109,7 +109,7 @@ open class SwiftMaskField: UITextField {
                 textWithMask = textWithMask + String(text[i]).uppercased()
                 i += 1
             } else if("\(maskString[index])" == "u") { // Only Characters a-z + Numbers, lower case only
-                if(hasSpecialCharacter(searchTerm: text[i])) {
+                if(hasSpecialCharacter2(searchTerm: text[i])) {
                     break
                 }
                 
@@ -138,6 +138,17 @@ open class SwiftMaskField: UITextField {
         }
         
         return false
+    }
+   
+    public func hasSpecialCharacter2(searchTerm: String) -> Bool {
+        let regex = try! NSRegularExpression(pattern: ".*[^A-Za-z0-9_-].*", options: NSRegularExpression.Options())
+        
+        if regex.firstMatch(in: searchTerm, options: NSRegularExpression.MatchingOptions(), range: NSMakeRange(0, searchTerm.count)) != nil {
+            return true
+        }
+        
+        return false
+        
     }
     
     public func hasSpecialCharacter(searchTerm: String) -> Bool {
